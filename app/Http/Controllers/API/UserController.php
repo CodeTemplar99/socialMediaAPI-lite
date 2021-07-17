@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 use Validator;
 
 class UserController extends Controller{
@@ -27,6 +28,9 @@ class UserController extends Controller{
     }
    }
 
+   /**
+    * register API
+    */
 
    public function register(Request $request){
        $validator = Validator::make($request->all(),[
@@ -41,6 +45,14 @@ class UserController extends Controller{
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()], 401);
         }
+
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $success['token'] = $user->createToken('eurekaAPI')->accessToken;
+        $success['name'] = $user->name;
+        return response()->json(['success'=>$success],$this->successStatus);
+
     }
 }
 
