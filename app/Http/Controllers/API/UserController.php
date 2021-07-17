@@ -40,6 +40,7 @@ class UserController extends Controller{
            'c_password'=>'required|same:password',
            'username' => 'required',
            'phone'=>'required',
+           'DOB'=>'required|date',
            'institution'=>'required',
         ]);
         if($validator->fails()){
@@ -53,6 +54,14 @@ class UserController extends Controller{
         $success['name'] = $user->name;
         return response()->json(['success'=>$success],$this->successStatus);
 
+    }
+
+    /**
+     * user details API
+     */
+    public function details(){
+        $user =Auth::user();
+        return response()->json(['success'=>$user],$this->successStatus);
     }
 }
 
