@@ -40,12 +40,12 @@ class SignupActivate extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/api/auth/signup/activate/'.$notifiable->activation_token);
+        $url = url('/signup/activate/'.$notifiable->activation_token);
 
         return (new MailMessage)
         ->line('Confirm Eureka Signup')
-        ->line('Thanks for signup! Please, you must confirm your account to enjoy full features.')
-        ->action('Confirm Action', url('/'))
+        ->line('Thanks for signup! Please, confirm your account to enjoy full features.')
+        ->action('Confirm Action', url($url))
         ->line('Thank you for using our application!');
     }
 

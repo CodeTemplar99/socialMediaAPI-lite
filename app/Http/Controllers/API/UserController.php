@@ -55,9 +55,12 @@ class UserController extends Controller{
       $user = User::create($input);
       $success['token'] = $user->createToken('eurekaAPI')->accessToken;
       $success['name'] = $user->name;
-      return response()->json(['success'=>$success],$this->successStatus);
       
       $user->notify(new SignupActivate($user));
+
+
+      return response()->json(['success'=>$success],$this->successStatus);
+      
 
     }
 
