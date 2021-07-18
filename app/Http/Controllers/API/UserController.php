@@ -33,42 +33,41 @@ class UserController extends Controller{
     * register API
     */
 
-   public function register(Request $request){
-       $validator = Validator::make($request->all(),[
-           'name' => 'required|string',
-           'email'=> 'required|email|unique:users',
-           'password'=>'required',
-           'c_password'=>'required|same:password',
-           'username' => 'required|string|unique:users',
-           'phone'=>'required|string|unique',
-           'DOB'=>'required|date',
-           'institution'=>'required|string',
-        ]);
-        if($validator->fails()){
-            return response()->json(['error'=>$validator->errors()], 401);
-        }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        // $user['activation_token']->str_random(60);
-        $success['token'] = $user->createToken('eurekaAPI')->accessToken;
-        $success['name'] = $user->name;
-        return response()->json(['success'=>$success],$this->successStatus);
-
+    public function register(Request $request){
+     
+      $validator = Validator::make($request->all(),[
+        'name' => 'required|string',
+        'email'=> 'required|email|unique:users',
+        'password'=>'required',
+        'c_password'=>'required|same:password',
+        'username' => 'required|string|unique:users',
+        'phone'=>'required|string|unique:users',
+        'DOB'=>'required|date',
+        'institution'=>'required|string',
+      ]);
+      if($validator->fails()){
+        return response()->json(['error'=>$validator->errors()], 401);
+      }
         
-        $user->notify(new SignupActivate($user));
+      $input = $request->all();
+      $input['password'] = bcrypt($input['password']);
+      $input['activation_token'] = str_random(30);
+      $user = User::create($input);
+      $success['token'] = $user->createToken('eurekaAPI')->accessToken;
+      $success['name'] = $user->name;
+      return response()->json(['success'=>$success],$this->successStatus);
+      
+      $user->notify(new SignupActivate($user));
 
     }
 
     
-
     /**
      * user details API
      */
     public function details(){
-        $user =Auth::user();
-        return response()->json(['success'=>$user],$this->successStatus);
+      $user =Auth::user();
+      return response()->json(['success'=>$user],$this->successStatus);
     }
 }
 

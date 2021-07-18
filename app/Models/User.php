@@ -30,6 +30,7 @@ class User extends Authenticatable
         'DOB',
         'institution',
         'active',
+        'activation_token',
     ];
 
     /**
@@ -50,5 +51,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'DOB'=>'datetime',
     ];
 }
