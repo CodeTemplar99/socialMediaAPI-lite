@@ -14,10 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', 'API\UserController@LoginUser');
-Route::post('register', 'API\UserController@RegisterUser');
-Route::get('activation/{token}', 'API\UserController@ActivateUser');
+Route::post('login', 'API\Auth\UserController@LoginUser');
+Route::post('register', 'API\Auth\UserController@RegisterUser');
+Route::get('activation/{token}', 'API\Auth\UserController@ActivateUser');
+
+Route::post('forgot-password', 'API\Auth\ForgotPasswordController@Forgotpassword');
+Route::post('reset-password', 'API\Auth\ResetPasswordController@Resetpassword');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
-Route::post('details', 'API\UserController@Userdetails');
+Route::post('details', 'API\Auth\UserController@Userdetails');
 });

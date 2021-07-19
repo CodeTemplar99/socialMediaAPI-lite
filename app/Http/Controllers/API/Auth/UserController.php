@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -79,17 +79,17 @@ class UserController extends Controller{
         $user->activation_token = 'used';
         $user->save();
 
-        return response()->json([
+        return [response()->json([
           'message' => 'Account activated'
-        ], 200);
+        ], 200), $user];
       }
+
       elseif(!$user){
         return response()->json([
           'message' => 'This activation code is invalid.'
         ], 404);
       }
 
-      return $user;
     }
 
     
