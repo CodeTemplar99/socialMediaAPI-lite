@@ -20,7 +20,9 @@ class UserController extends Controller{
    */
 
    public function LoginUser(){
-     if(Auth::attempt(['email' => request('email'),'password'=>request('password')])){
+     if(Auth::attempt([
+       'email' => request('email'),
+       'password'=>request('password')])){
        $user =Auth::user();
        $success['token']= $user->createToken('eurekaAPI')->accessToken;
        return response()->json(['success' => $success], $this->successStatus);
@@ -37,14 +39,14 @@ class UserController extends Controller{
     public function RegisterUser(Request $request){
      
       $validator = Validator::make($request->all(),[
-        'name' => 'required|string',
+        'name' => 'required|string|min:5',
         'email'=> 'required|email|unique:users',
-        'password'=>'required',
+        'password'=>'required|min:6|max:100',
         'c_password'=>'required|same:password',
-        'username' => 'required|string|unique:users',
-        'phone'=>'required|string|unique:users',
-        'DOB'=>'required|date',
-        'institution'=>'required|string',
+        'username' => 'required|string|min:4|max:20|unique:users',
+        'phone'=>'required|string|unique:users|starts_with:+234,+',
+        'DOB'=>'required|date|before:12 years ago',
+        'institution'=>'required|string|min:3|max:100',
       ]);
       if($validator->fails()){
         return response()->json(['error'=>$validator->errors()], 401);
@@ -52,7 +54,7 @@ class UserController extends Controller{
         
       $input = $request->all();
       $input['password'] = bcrypt($input['password']);
-      $input['activation_token'] = str_random(30);
+      $input['activation_token'] = str_random(60);
       $user = User::create($input);
       $success['token'] = $user->createToken('eurekaAPI')->accessToken;
       $success['name'] = $user->name;
