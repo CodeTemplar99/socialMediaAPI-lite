@@ -18,8 +18,8 @@ Route::post('login', 'API\Auth\UserController@LoginUser');
 Route::post('register', 'API\Auth\UserController@RegisterUser');
 Route::get('activation/{token}', 'API\Auth\UserController@ActivateUser');
 
-Route::post('forgot-password', 'API\Auth\ForgotPasswordController@Forgotpassword');
-Route::post('reset-password', 'API\Auth\ResetPasswordController@Resetpassword');
+Route::post('forgot-password', 'API\Auth\ForgotPasswordController@ForgotPassword');
+Route::post('reset-password', 'API\Auth\ResetPasswordController@ResetPassword');
 
 
 Route::group(['middleware' => 'auth:api'], function(){

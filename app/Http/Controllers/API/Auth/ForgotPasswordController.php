@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
 use DB; 
 use Carbon\Carbon; 
-use App\Models\User; 
 use Mail;
 
 /**
@@ -14,7 +13,7 @@ use Mail;
  */
 class ForgotPasswordController extends Controller{
 
-  public function Forgotpassword(Request $request){
+  public function ForgotPassword(Request $request){
     $request->validate(['email'=>'required|email|exists:Users',]);
 
     $token = str_random(60);
