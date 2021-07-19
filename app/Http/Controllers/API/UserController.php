@@ -9,6 +9,7 @@ use App\Notifications\SignupActivate;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
 use Validator;
+use Carbon\Carbon;
 
 class UserController extends Controller{
 
@@ -18,7 +19,7 @@ class UserController extends Controller{
    * login API
    */
 
-   public function login(){
+   public function LoginUser(){
      if(Auth::attempt(['email' => request('email'),'password'=>request('password')])){
        $user =Auth::user();
        $success['token']= $user->createToken('eurekaAPI')->accessToken;
@@ -33,7 +34,7 @@ class UserController extends Controller{
     * register API
     */
 
-    public function register(Request $request){
+    public function RegisterUser(Request $request){
      
       $validator = Validator::make($request->all(),[
         'name' => 'required|string',
@@ -64,11 +65,38 @@ class UserController extends Controller{
 
     }
 
+
+    /**
+     * Signup activation
+     */
+    public function ActivateUser($token){
+
+      $user = User::where('activation_token', $token)->first();
+
+      if($user){
+        $user->active = true;
+        $user->email_verified_at = Carbon::now();
+        $user->activation_token = 'used';
+        $user->save();
+
+        return response()->json([
+          'message' => 'Account activated'
+        ], 200);
+      }
+      elseif(!$user){
+        return response()->json([
+          'message' => 'This activation code is invalid.'
+        ], 404);
+      }
+
+      return $user;
+    }
+
     
     /**
      * user details API
      */
-    public function details(){
+    public function Userdetails(){
       $user =Auth::user();
       return response()->json(['success'=>$user],$this->successStatus);
     }
