@@ -15,9 +15,7 @@ use Mail;
 class ForgotPasswordController extends Controller{
 
   public function Forgotpassword(Request $request){
-    $request->validate([
-      'email'=>'required|email|exists:Users',
-    ]);
+    $request->validate(['email'=>'required|email|exists:Users',]);
 
     $token = str_random(60);
 
@@ -63,7 +61,7 @@ class ForgotPasswordController extends Controller{
 
 
     return response()->json([
-      'message'=>'We have e-mailed your password reset link!'
-    ]);
+      'message'=>'We have sent your password rest link, please check your mail.'
+    ], 200);
   }
 }

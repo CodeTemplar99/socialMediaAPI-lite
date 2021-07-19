@@ -43,6 +43,7 @@ class SignupActivate extends Notification
         $url = url('api/activation/'.$notifiable->activation_token);
 
         return (new MailMessage)
+        ->subject('Signup Confirmation')
         ->line('Confirm Eureka Signup')
         ->line('Thanks for signup! Please, confirm your account to enjoy full features.')
         ->action('Confirm Action', url($url))
