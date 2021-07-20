@@ -62,8 +62,8 @@ class RegisterController extends Controller{
       'email'=> 'required|email|unique:admins',
       'password'=>'required|min:6|max:100',
       'c_password'=>'required|same:password',
-      // 'username' => 'required|string|min:4|max:20|unique:admins',
-      // 'phone'=>'required|string|unique:admins|starts_with:+234,+',
+      'username' => 'required|string|min:4|max:20|unique:admins',
+      'phone'=>'required|string|unique:admins|starts_with:+234,+',
       'DOB'=>'required|date|before:12 years ago',
     ]);
     if($validator->fails()){
