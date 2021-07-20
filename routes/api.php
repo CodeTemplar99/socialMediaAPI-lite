@@ -23,7 +23,7 @@ Route::post('register/admin', 'API\Auth\RegisterController@RegisterAdmin');
 Route::get('activation/{token}', 'API\Auth\ActivationController@ActivateUser');
 
 Route::post('forgot-password', 'API\Auth\ForgotPasswordController@ForgotPassword');
-Route::post('reset-password', 'API\Auth\ResetPasswordController@ResetPassword');
+Route::post('reset-password/{token}', 'API\Auth\ResetPasswordController@ResetPassword');
 
 Route::group(['middleware' => 'auth:api'], function(){
   Route::post('details', 'API\Auth\DetailsController@Userdetails');

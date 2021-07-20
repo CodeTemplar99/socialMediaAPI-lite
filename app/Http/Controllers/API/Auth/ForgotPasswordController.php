@@ -24,7 +24,7 @@ class ForgotPasswordController extends Controller{
       'created_at' => Carbon::now(),
     ]);
 
-    $url = url('passreset/now/'.$token);
+    $url = url('reset-password/'.$token);
     
     /**
      * reset link mail styling

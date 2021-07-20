@@ -17,7 +17,12 @@ class Admin extends Authenticatable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'username',
+        'password',
+        'phone',
+        'activation_token',
     ];
 
     protected $hidden = [

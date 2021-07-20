@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Admin;
+use App\Models\User;
 use App\Notifications\SignupActivate;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\Validator;
@@ -60,11 +60,10 @@ class RegisterController extends Controller{
     $validator = Validator::make($request->all(),[
       'name' => 'required|string|min:5',
       'email'=> 'required|email|unique:admins',
-      'password'=>'required|min:6|max:100',
-      'c_password'=>'required|same:password',
       'username' => 'required|string|min:4|max:20|unique:admins',
       'phone'=>'required|string|unique:admins|starts_with:+234,+',
-      'DOB'=>'required|date|before:12 years ago',
+      'password'=>'required|min:6|max:100',
+      'c_password'=>'required|same:password',
     ]);
     if($validator->fails()){
       return response()->json(['error'=>$validator->errors()], 401);

@@ -51,12 +51,11 @@ class LoginController extends Controller{
         'password' => 'required|min:6'
       ]
     );
-    if(Auth::guard('user')->attempt(
-      [
+    if(Auth::guard('user')->attempt([
         'email' => request('email'),
         'password'=>request('password')
-      ],$request->get('remember'))){
-        $user =Auth::user();
+      ])){
+        $user = Auth::user();
         $success['token']= $user->createToken('eurekaAPI')->accessToken;
         return response()->json(['success' => $success], $this->successStatus);
       }
@@ -64,4 +63,5 @@ class LoginController extends Controller{
       return response()->json(['error'=>'unauthorised'], 401);
     }
   }
+  
 }
