@@ -41,6 +41,16 @@ return [
             'provider' => 'users',
         ],
 
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+            'hash' => false,
+        ],
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
@@ -66,6 +76,11 @@ return [
     */
 
     'providers' => [
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
@@ -112,6 +127,8 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    'password_timeout' => 3600,
+
+    // I have set timeout to 1 hour above
 
 ];
