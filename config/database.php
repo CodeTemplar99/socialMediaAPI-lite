@@ -65,8 +65,8 @@ return [
 // mysql://b571e64473d31c:43ca4cd2@us-cdbr-east-04.cleardb.com/heroku_3cffddebc0bf7d7?reconnect=true
         'mysql' => [
             'driver' => 'mysqli',
-            'url' => 'us-cdbr-east-04.cleardb.com',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'url' => env('DATABASE_URL'),
+            'host' => 'us-cdbr-east-04.cleardb.com',
             'port' => env('DB_PORT', '3306'),
             'database' => 'heroku_3cffddebc0bf7d7',
             'username' => 'b571e64473d31c',
