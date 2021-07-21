@@ -15,7 +15,7 @@ class DetailsController extends Controller{
   */
   public function Userdetails(){
     $user =Auth::user();
-    return response()->json(['success'=>$user],$this->successStatus);
+    return response()->json(['user'=>$user],$this->successStatus);
   }
 }
 

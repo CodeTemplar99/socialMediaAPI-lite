@@ -4,11 +4,7 @@ namespace App\Http\Controllers\API\auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Console\Input\Input;
-use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller{
   
@@ -29,11 +25,12 @@ class LoginController extends Controller{
         'password' => 'required|min:6'
       ]
     );
-    if(Auth::guard('admin')->attempt(['email' => request('email'),'password'=>request('password')])){
-       $admin =Auth::admin();
-       $success['admin']= $admin;
-       return response()->json(['success' => $success], 200);
-     }
+
+    if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+      $admin =Auth::admin();
+      $success['admin']= $admin;
+      return response()->json(['user' => $success], 200);
+    }
     else{
       return response()->json(['error'=>'unauthorised'], 401);
     }
@@ -53,7 +50,7 @@ class LoginController extends Controller{
     if(Auth::guard($guard)->attempt(['email' => request('email'),'password'=>request('password')])){
        $user =Auth::user();
        $success['user']= $user;
-       return response()->json(['success' => $success], 200);
+       return response()->json(['user' => $success], 200);
      }
      else{
        return response()->json(['error'=>'unauthorised'], 401);

@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('login/user', 'API\Auth\LoginController@UserLogin');
 Route::post('register/user', 'API\Auth\RegisterController@RegisterUser');
 Route::get('activation/user/{token}', 'API\Auth\ActivationController@ActivateUser');
+Route::post('forgot-password/user', 'API\Auth\ForgotPasswordController@ForgotUserPassword');
+Route::post('reset-password/user/{token}', 'API\Auth\ResetPasswordController@ResetUserPassword');
 
 /**
  * Admin auth routes
@@ -29,10 +31,10 @@ Route::get('activation/user/{token}', 'API\Auth\ActivationController@ActivateUse
 Route::post('login/admin', 'API\Auth\LoginController@AdminLogin');
 Route::post('register/admin', 'API\Auth\RegisterController@RegisterAdmin');
 Route::get('activation/admin/{token}', 'API\Auth\ActivationController@ActivateAdmin');
+Route::post('forgot-password/admin', 'API\Auth\ForgotPasswordController@ForgotAdminPassword');
+Route::post('reset-password/admin/{token}', 'API\Auth\ResetPasswordController@ResetAdminPassword');
 
 
-Route::post('forgot-password', 'API\Auth\ForgotPasswordController@ForgotPassword');
-Route::post('reset-password/{token}', 'API\Auth\ResetPasswordController@ResetPassword');
 
 Route::group(['middleware' => 'auth:api'], function(){
   Route::post('details', 'API\Auth\DetailsController@Userdetails');

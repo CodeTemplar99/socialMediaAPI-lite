@@ -27,8 +27,8 @@ class RegisterController extends Controller{
   protected function RegisterUser(Request $request){   
     $validator = Validator::make($request->all(),[
       'name' => 'required|string|min:5',
-      'email'=> 'required|email|unique:users',
-      'password'=>'required|min:6|max:100',
+      'email'=> 'required|email|min:5|max:191|unique:users',
+      'password'=>'required|string|min:6|max:100',
       'c_password'=>'required|same:password',
       'username' => 'required|string|min:4|max:20|unique:users',
       'phone'=>'required|string|unique:users|starts_with:+234,+',
@@ -49,7 +49,7 @@ class RegisterController extends Controller{
       $user->notify(new SignupActivate($user));
       
       
-      return response()->json(['success'=>$success],$this->successStatus);
+      return response()->json(['user'=>$success],$this->successStatus);
       
       
     }
@@ -60,10 +60,10 @@ class RegisterController extends Controller{
     protected function RegisterAdmin(Request $request){   
     $validator = Validator::make($request->all(),[
       'name' => 'required|string|min:5',
-      'email'=> 'required|email|unique:admins',
+      'email'=> 'required|email|min:5|max:191|unique:admins',
       'username' => 'required|string|min:4|max:20|unique:admins',
       'phone'=>'required|string|unique:admins|starts_with:+234,+',
-      'password'=>'required|min:6|max:100',
+      'password'=>'required|string|min:6|max:100',
       'c_password'=>'required|same:password',
     ]);
     if($validator->fails()){
@@ -80,7 +80,7 @@ class RegisterController extends Controller{
     $admin->notify(new AdminActivate($admin));
 
 
-    return response()->json(['success'=>$success],$this->successStatus);
+    return response()->json(['user'=>$success],$this->successStatus);
     
 
   }
