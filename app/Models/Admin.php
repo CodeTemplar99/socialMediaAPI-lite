@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Admin extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable, SoftDeletes;
+
+    protected $table = 'admins';
+
     protected $guard = 'admin';
 
     protected $dates = ['deleted_at'];
@@ -22,6 +25,7 @@ class Admin extends Authenticatable
         'username',
         'password',
         'phone',
+        'active',
         'activation_token',
     ];
 

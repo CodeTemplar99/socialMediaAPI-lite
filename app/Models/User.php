@@ -19,6 +19,10 @@ class User extends Authenticatable
      * @var array
      */
 
+    protected $table = 'users';
+
+    protected $guard = 'admin';
+
     protected $dates = ['deleted_at'];
 
     protected $fillable = [

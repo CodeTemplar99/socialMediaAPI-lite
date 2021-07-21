@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SignupActivate extends Notification
+class AdminActivate extends Notification
 {
     use Queueable;
 
@@ -40,7 +40,7 @@ class SignupActivate extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('api/activation/user/'.$notifiable->activation_token);
+        $url = url('api/activation/admin/'.$notifiable->activation_token);
 
         return (new MailMessage)
         ->subject('Signup Confirmation')

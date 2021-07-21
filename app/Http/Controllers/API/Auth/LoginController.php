@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller{
   
@@ -20,47 +21,42 @@ class LoginController extends Controller{
   }
 
   /**
-  * login API
+  * Admin login API
   */
   public function AdminLogin(Request $request){
-    $this->validate(
-      $request, [
+    $this->validate($request, [
         'email'   => 'required|email',
         'password' => 'required|min:6'
       ]
     );
-    if(Auth::guard('admin')->attempt(
-      [
-        'email' => request('email'),
-        'password'=>request('password')
-      ],$request->get('remember'))){
-        $admin =Auth::admin();
-        $success['token']= $admin->createToken('eurekaAPI')->accessToken;
-        return response()->json(['success' => $success], $this->successStatus);
-      }
+    if(Auth::guard('admin')->attempt(['email' => request('email'),'password'=>request('password')])){
+       $admin =Auth::admin();
+       $success['admin']= $admin;
+       return response()->json(['success' => $success], 200);
+     }
     else{
       return response()->json(['error'=>'unauthorised'], 401);
     }
   }
 
+  /**
+   * User Login API
+   */
 
-  public function UserLogin(Request $request){
+  public function UserLogin(Request $request, $guard=null){
     $this->validate(
       $request, [
         'email'   => 'required|email',
         'password' => 'required|min:6'
       ]
     );
-    if(Auth::guard('user')->attempt([
-        'email' => request('email'),
-        'password'=>request('password')
-      ])){
-        $user = Auth::user();
-        $success['token']= $user->createToken('eurekaAPI')->accessToken;
-        return response()->json(['success' => $success], $this->successStatus);
-      }
-    else{
-      return response()->json(['error'=>'unauthorised'], 401);
+    if(Auth::guard($guard)->attempt(['email' => request('email'),'password'=>request('password')])){
+       $user =Auth::user();
+       $success['user']= $user;
+       return response()->json(['success' => $success], 200);
+     }
+     else{
+       return response()->json(['error'=>'unauthorised'], 401);
     }
   }
   

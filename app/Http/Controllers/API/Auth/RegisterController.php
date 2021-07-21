@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\User;
 use App\Notifications\SignupActivate;
+use App\Notifications\AdminActivate;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\Validator;
 
@@ -76,7 +77,7 @@ class RegisterController extends Controller{
     $success['token'] = $admin->createToken('eurekaAPI')->accessToken;
     $success['name'] = $admin->name;
     
-    $admin->notify(new SignupActivate($admin));
+    $admin->notify(new AdminActivate($admin));
 
 
     return response()->json(['success'=>$success],$this->successStatus);
