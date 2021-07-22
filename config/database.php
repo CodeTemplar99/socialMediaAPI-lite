@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' =>('pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,9 +45,6 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-
-        // mysql://b571e64473d31c:43ca4cd2@us-cdbr-east-04.cleardb.com/heroku_3cffddebc0bf7d7?reconnect=true
-       
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -57,7 +54,7 @@ return [
             'username' => env('DB_USERNAME', 'b571e64473d31c'),
             'password' => env('DB_PASSWORD', '43ca4cd2'),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8',
+            'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
