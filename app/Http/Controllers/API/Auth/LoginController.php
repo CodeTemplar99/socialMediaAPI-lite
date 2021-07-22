@@ -9,13 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller{
   
   public $successStatus = 200;
-
-  public function __construct(){
-    $this->middleware('guest')->except('logout');
-    $this->middleware('guest:admin')->except('logout');
-    $this->middleware('guest:user')->except('logout');
-  }
-
   /**
   * Admin login API
   */
@@ -26,9 +19,10 @@ class LoginController extends Controller{
       ]
     );
 
-    if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-      $admin =Auth::admin();
-      $success['admin']= $admin;
+    if (Auth::guard('admin')->attempt($request->only('email','password'))){
+      $user = Auth::guard('admin')->user();
+      $success['token'] =  $user->createToken('EurekaAPI')->accessToken;
+      $success['admin']= $user;
       return response()->json(['user' => $success], 200);
     }
     else{
@@ -40,16 +34,17 @@ class LoginController extends Controller{
    * User Login API
    */
 
-  public function UserLogin(Request $request, $guard=null){
+  public function UserLogin(Request $request){
     $this->validate(
       $request, [
         'email'   => 'required|email',
         'password' => 'required|min:6'
       ]
     );
-    if(Auth::guard($guard)->attempt(['email' => request('email'),'password'=>request('password')])){
-       $user =Auth::user();
-       $success['user']= $user;
+    if (Auth::guard('user')->attempt($request->only('email','password'))){
+      $user = Auth::guard('user')->user();
+      $success['token'] =  $user->createToken('EurekaAPI')->accessToken;
+      $success['user']= $user;
        return response()->json(['user' => $success], 200);
      }
      else{

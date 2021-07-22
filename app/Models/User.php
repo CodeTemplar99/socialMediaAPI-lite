@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $guard = 'admin';
+    protected $guard = 'users';
 
     protected $dates = ['deleted_at'];
 
@@ -57,4 +57,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'DOB'=>'datetime',
     ];
+
+    public function questions(){
+        return $this->hasMany('App\Questions ');
+    }
 }

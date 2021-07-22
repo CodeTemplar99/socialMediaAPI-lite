@@ -15,7 +15,7 @@ class Admin extends Authenticatable
 
     protected $table = 'admins';
 
-    protected $guard = 'admin';
+    // protected $guard = 'admin';
 
     protected $dates = ['deleted_at'];
 
