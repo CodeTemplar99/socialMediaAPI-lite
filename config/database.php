@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' =>('pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
-        
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
