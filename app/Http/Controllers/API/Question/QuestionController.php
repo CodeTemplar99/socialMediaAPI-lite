@@ -25,7 +25,7 @@ class QuestionController extends Controller{
     
     $question->save();
 
-    return response()->json(['Question'=>'$question']);
-    
+    return response()->json(['Question'=> $question, 'status'=>$this->successStatus]);
+
   }
 }

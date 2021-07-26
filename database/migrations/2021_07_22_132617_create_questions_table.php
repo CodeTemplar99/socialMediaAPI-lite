@@ -19,8 +19,8 @@ class CreateQuestionsTable extends Migration
             $table->text('title');
             $table->text('tag');
             $table->text('body');
-            $table->integer('helps');
-            $table->integer('not_help');
+            $table->integer('helps')->nullable();
+            $table->integer('not_help')->nullable();
             $table->timestamps();
         });
     }

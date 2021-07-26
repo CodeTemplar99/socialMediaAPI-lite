@@ -9,10 +9,27 @@ class Question extends Model
 {
     use HasFactory;
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+
      protected $fillable = [
         'title',
         'tag',
         'body',
+    ];
+
+
+     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        // '',
     ];
 
     public function User(){
