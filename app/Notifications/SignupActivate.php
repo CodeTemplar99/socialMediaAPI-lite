@@ -40,7 +40,7 @@ class SignupActivate extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('api/activation/user/'.$notifiable->activation_token);
+        $url = url('api/user/activation/'.$notifiable->activation_token);
 
         return (new MailMessage)
         ->subject('Signup Confirmation')

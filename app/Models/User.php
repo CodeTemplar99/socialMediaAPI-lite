@@ -35,6 +35,7 @@ class User extends Authenticatable
         'institution',
         'active',
         'activation_token',
+        ''
     ];
 
     /**
@@ -59,6 +60,6 @@ class User extends Authenticatable
     ];
 
     public function questions(){
-        return $this->hasMany('App\Questions ');
+        return $this->hasMany('App\Question');
     }
 }
