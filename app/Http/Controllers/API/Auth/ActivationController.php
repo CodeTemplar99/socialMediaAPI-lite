@@ -23,7 +23,7 @@ class ActivationController extends Controller{
     $user = User::where('activation_token', $token)->first();
 
     if($user){
-      $user->active = true;
+      // $user->active = true;
       $user->email_verified_at = Carbon::now();
       $user->activation_token = 'used';
       $user->save();
@@ -46,7 +46,7 @@ class ActivationController extends Controller{
     $admin = Admin::where('activation_token', $token)->first();
 
     if($admin){
-      $admin->active = true;
+      // $admin->active = true;
       $admin->email_verified_at = Carbon::now();
       $admin->activation_token = 'used';
       $admin->save();
