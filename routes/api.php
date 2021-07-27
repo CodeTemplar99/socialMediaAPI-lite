@@ -24,8 +24,10 @@ Route::post('forgot-password', 'API\Auth\ForgotPasswordController@ForgotUserPass
 Route::post('reset-password/{token}','API\Auth\ResetPasswordController@ResetUserPassword');
 
 Route::group(['middleware' => 'auth:api'], function(){
-  Route::post('createquestion','API\Question\QuestionController@CreateQuestion');
   Route::post('details', 'API\Auth\DetailsController@Userdetails');
+  Route::post('createquestion','API\Question\QuestionController@CreateQuestion');
+  Route::get('post/{id}/islikedbyme', 'API\Question\QuestionController@isLikedByMe');
+  Route::post('post/like', 'API\Question\QuestionController@like');
 });
 
 

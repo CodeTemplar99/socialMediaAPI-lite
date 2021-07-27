@@ -4,8 +4,11 @@ namespace App\Http\Controllers\API\Question;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\Like;
+use App\Models\User;
+use SoftDeletes; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 class QuestionController extends Controller{
 
   public $successStatus = 200;
@@ -27,5 +30,19 @@ class QuestionController extends Controller{
 
     return response()->json(['Question'=> $question, 'status'=>$this->successStatus]);
 
+  }
+
+  public function like(Request $question){
+    $data = new Like;
+    $data->question_id=$question->Question;
+    if($question->type=='like'){
+      $data->upvotes= 1;
+    }else{
+      $data->downvotes=1;
+    }
+    $data->save();
+    return response()->json([
+      'bool'=>true
+    ]);
   }
 }

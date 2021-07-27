@@ -29,10 +29,14 @@ class Question extends Model
      * @var array
      */
     protected $hidden = [
-        // '',
+        'user_id',
     ];
 
     public function User(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
+    }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
     }
 }
