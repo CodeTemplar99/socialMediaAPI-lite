@@ -33,7 +33,7 @@ class User extends Authenticatable
         'phone',
         'DOB',
         'institution',
-        'active',
+        // 'active',
         'activation_token',
         ''
     ];

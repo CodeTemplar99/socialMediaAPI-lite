@@ -10,6 +10,7 @@ use App\Notifications\SignupActivate;
 use App\Notifications\AdminActivate;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 class RegisterController extends Controller{
@@ -40,7 +41,7 @@ class RegisterController extends Controller{
       }
       
       $input = $request->all();
-      $input['password'] = bcrypt($input['password']);
+      $input['password'] = Hash::make($input['password']);
       $input['activation_token'] = str_random(60);
       $user = User::create($input);
       $success['token'] = $user->createToken('eurekaAPI')->accessToken;
@@ -71,7 +72,7 @@ class RegisterController extends Controller{
     }
       
     $input = $request->all();
-    $input['password'] = bcrypt($input['password']);
+    $input['password'] = Hash::make($input['password']);
     $input['activation_token'] = str_random(60);
     $admin = Admin::create($input);
     $success['token'] = $admin->createToken('eurekaAPI')->accessToken;
