@@ -24,7 +24,7 @@ class CommentController extends Controller{
     // $comment->user_id = auth()->id();
     $comment->comment=$request['comment'];
     $comment->user()->associate($request->user());
-    $question = Question::find($request->parent_id);
+    $question = Question::find($request->question_id);
     $question->comments()->save($comment);
     
     $comment->save();

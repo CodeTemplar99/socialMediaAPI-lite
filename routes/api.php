@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth:api'], function(){
   Route::get('post/{id}/islikedbyme', 'API\Question\QuestionController@isLikedByMe');
   Route::post('post/like', 'API\Question\QuestionController@like');
 
-  Route::post('{parent_id}/comment', 'API\Comment\CommentController@MakeComment');
+  Route::post('{question_id}/comment', 'API\Comment\CommentController@MakeComment');
 });
 
 

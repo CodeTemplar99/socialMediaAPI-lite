@@ -40,7 +40,7 @@ class AdminActivate extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('api/activation/admin/'.$notifiable->activation_token);
+        $url = url('api/admin/activation'.$notifiable->activation_token);
 
         return (new MailMessage)
         ->subject('Signup Confirmation')
