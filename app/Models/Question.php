@@ -28,9 +28,9 @@ class Question extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'user_id',
-    ];
+    // protected $hidden = [
+    //     'user_id',
+    // ];
 
     public function User(){
         return $this->belongsTo(User::class);
@@ -38,5 +38,10 @@ class Question extends Model
 
     public function likes(){
         return $this->hasMany(Like::class);
+    }
+
+     public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
     }
 }

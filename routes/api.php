@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth:api'], function(){
   Route::post('createquestion','API\Question\QuestionController@CreateQuestion');
   Route::get('post/{id}/islikedbyme', 'API\Question\QuestionController@isLikedByMe');
   Route::post('post/like', 'API\Question\QuestionController@like');
+
+  Route::post('{parent_id}/comment', 'API\Comment\CommentController@MakeComment');
 });
 
 
@@ -35,11 +37,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 /**
  * Admin auth routes
 */
-Route::post('register/admin', 'API\Auth\RegisterController@RegisterAdmin');
-Route::get('activation/admin/{token}', 'API\Auth\ActivationController@ActivateAdmin');
-Route::post('login/admin', 'API\Auth\LoginController@AdminLogin');
-Route::post('forgot-password/admin', 'API\Auth\ForgotPasswordController@ForgotAdminPassword');
-Route::post('reset-password/admin/{token}', 'API\Auth\ResetPasswordController@ResetAdminPassword');
+Route::post('admin/register', 'API\Auth\RegisterController@RegisterAdmin');
+Route::get('admin/activation/{token}', 'API\Auth\ActivationController@ActivateAdmin');
+Route::post('admin/login', 'API\Auth\LoginController@AdminLogin');
+Route::post('admin/forgot-password', 'API\Auth\ForgotPasswordController@ForgotAdminPassword');
+Route::post('admin/reset-password/{token}', 'API\Auth\ResetPasswordController@ResetAdminPassword');
 
 Route::group(['middleware' => 'auth:admin'], function(){
 });
