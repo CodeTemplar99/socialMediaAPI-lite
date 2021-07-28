@@ -29,7 +29,7 @@ class CommentController extends Controller{
     
     $comment->save();
 
-    return response()->json(['Comment'=> $comment, 'status'=>$this->successStatus]);
+    return response()->json(['Comment'=> $question, 'status'=>$this->successStatus]);
 
   }
 }
