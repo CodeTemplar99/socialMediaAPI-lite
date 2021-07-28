@@ -5,14 +5,10 @@ namespace App\Http\Controllers\API\Question;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Like;
-use App\Models\User;
-use SoftDeletes; 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 class QuestionController extends Controller{
 
   public $successStatus = 200;
-
 
   public function CreateQuestion(Request $request){  
     $this->validate($request, array(
@@ -22,9 +18,9 @@ class QuestionController extends Controller{
     ));
     $question=new Question();
     $question->user_id = auth()->id();
-    $question->title=$request['title'];
-    $question->tag=$request['tag'];
-    $question->body=$request['body'];
+    $question->title = $request['title'];
+    $question->tag = $request['tag'];
+    $question->body = $request['body'];
     
     $question->save();
 
@@ -32,17 +28,13 @@ class QuestionController extends Controller{
 
   }
 
-  public function like(Request $question){
+  public function like(Request $request){
     $data = new Like;
-    $data->question_id=$question->Question;
-    if($question->type=='like'){
-      $data->upvotes= 1;
-    }else{
-      $data->downvotes=1;
-    }
+    $data->question_id = Question::find($request->question_id);
+      $data->upvotes++;
     $data->save();
     return response()->json([
-      'bool'=>true
+      'liked'=> $data
     ]);
   }
 }
