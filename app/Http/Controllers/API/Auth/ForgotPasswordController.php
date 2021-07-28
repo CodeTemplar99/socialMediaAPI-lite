@@ -24,7 +24,7 @@ class ForgotPasswordController extends Controller{
       'created_at' => Carbon::now(),
     ]);
 
-    $url = url('api/reset-password/user/'.$token);
+    $url = url('api/reset-password/'.$token);
     
     /**
      * reset link mail styling
@@ -60,7 +60,7 @@ class ForgotPasswordController extends Controller{
 
 
     return response()->json([
-      'message'=>'We have sent your password rest link, please check your mail.'
+      'message'=>'We have sent your password reset link, please check your mail.'
     ], 200);
   }
 
@@ -75,7 +75,7 @@ class ForgotPasswordController extends Controller{
       'created_at' => Carbon::now(),
     ]);
 
-    $url = url('api/reset-password/admin/'.$token);
+    $url = url('api/admin/reset-password/'.$token);
     
     /**
      * reset link mail styling
@@ -111,7 +111,7 @@ class ForgotPasswordController extends Controller{
 
 
     return response()->json([
-      'message'=>'We have sent your password rest link, please check your mail.'
+      'message'=>'We have sent your password reset link, please check your mail.'
     ], 200);
   }
 }

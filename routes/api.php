@@ -28,7 +28,6 @@ Route::group(['middleware' => 'auth:api'], function(){
   Route::post('createquestion','API\Question\QuestionController@CreateQuestion');
   Route::get('post/{id}/islikedbyme', 'API\Question\QuestionController@isLikedByMe');
   Route::post('post/like', 'API\Question\QuestionController@like');
-
   Route::post('{question_id}/comment', 'API\Comment\CommentController@MakeComment');
 });
 
