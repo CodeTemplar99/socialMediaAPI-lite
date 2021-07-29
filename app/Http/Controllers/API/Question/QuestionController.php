@@ -28,13 +28,37 @@ class QuestionController extends Controller{
 
   }
 
-  public function like(Request $request){
-    $data = new Like;
-    $data->question_id = Question::find($request->question_id);
-      $data->upvotes++;
-    $data->save();
-    return response()->json([
-      'liked'=> $data
-    ]);
+  public function Upvote(Question $request, $id){
+    $like = Like::where('question_id', $id)->first();
+    if($like == null){
+      // dd($id);
+      $like = new Like();
+      $like->question_id = $id;
+      $like->upvotes = 1;
+      $like->downvotes = 0;
+      $like->save();
+      return response()->json(['Like'=>$like]);
+    }
+    else{
+      $like->upvotes++;
+      $like->save();
+      return response()->json(['Like'=>$like]);
+    }
+  }
+
+  public function Downvote(Question $request, $id){
+    $unlike = Like::where('question_id', $id)->first();
+    if($unlike == null){
+      $unlike = new Like();
+      $unlike->question_id = $id;
+      $unlike->downvotes = 1;
+      $unlike->save();
+      return response()->json(['Like'=>$unlike]);
+    }
+    else{
+      $unlike->downvotes++;
+      $unlike->save();
+      return response()->json(['Like'=>$unlike]);
+    }
   }
 }

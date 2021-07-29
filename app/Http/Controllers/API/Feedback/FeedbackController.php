@@ -14,7 +14,7 @@ class FeedbackController extends Controller{
     $data = Request::all();
 
     $rules = array (
-      'first_name' => 'required',
+      'name' => 'required',
       'email' => 'required|email',
       'message' => 'required|string|min:5'
     );
@@ -31,7 +31,7 @@ class FeedbackController extends Controller{
           </style>
         <p>'.$data['message'].'</P>
         ';
-        $message->from($data['email'] , $data['first_name']);
+        $message->from($data['email'] , $data['name']);
         $message->setBody($html, 'text/html'); 
 
         $message->to('feedback@edvolute.com', 'Feeback Team')->cc('feedback@edvolute.com')->subject('feedback form submit');
@@ -41,7 +41,7 @@ class FeedbackController extends Controller{
 
     }
     else{
-       return response()->json(['error' => 'Feedback must contain more than 5 characters. Try Again.']);
+       return response()->json(['error' => 'Check input fields. Try Again.']);
     }
   }
 }
